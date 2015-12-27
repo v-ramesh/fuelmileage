@@ -1,0 +1,56 @@
+How Automobile Features Affect Fuel Consumption
+========================================================
+transition: rotate
+
+https://vramesh.shinyapps.io/Fuel_Mileage
+
+
+Overview
+========================================================
+
+**Web Application for exploring the dependence of fuel consumption on 
+various automobile features**
+<small>
+- Based on the R dataset **mtcars**: data extracted from the 1974 *Motor Trend* magazine.
+- Comprises fuel consumption and other information for 32 (1973-1974) models.
+- User can select the automobile feature (e.g., transmission type) whose effect on fuel consumption she is interested in exploring.
+- Application generates a visualization of the dependence of mileage (per gallon) on the feature selected.
+- Plot intelligently generated according to the type of selected feature (categorical vs. numerical); labels intelligently generated to aid readability.
+</small>
+
+Plots for Categorical Variables
+========================================================
+<small>
+```{r echo=FALSE, warning=FALSE}
+library(ggplot2)
+library(datasets)
+mtcars$transmission <- factor(mtcars$am, labels = c("Automatic", "Manual"))
+ggplot(mtcars, aes(x = transmission, y = mpg)) + geom_boxplot(aes(fill = transmission))
+```
+- Can examine inter-level differences vs. intra-level variations
+</small>
+
+Plots for Numerical Variables
+========================================================
+<small>
+```{r, echo=FALSE}
+qplot(hp, mpg, data = mtcars, geom = c("point", "smooth"))
+```
+- Can examine linearity and precision of relationship
+</small>
+
+Conclusion
+================================================
+
+**Applications**
+<small>
+- Exploring the effect of automobile features on fuel consumption.
+- Remember the course project in "Regression Models"? This app would have been helpful in selecting variables to regress on.
+- Application code can be easily modified to use alternate datasets (e.g., data on more modern cars).
+</small>
+
+**Technical Challenges Addressed**
+<small>
+- Handling of dynamically input variables within **ggplot**.
+- Intelligent generation of plots and readable plot labels. 
+</small>
